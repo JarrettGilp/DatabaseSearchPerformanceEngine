@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Games & Orders DB</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { margin-bottom: 20px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        input[type="text"] { width: 400px; padding: 5px; }
+        input[type="submit"] { padding: 5px 10px; margin-left: 5px; }
+
+        /* Boxes container */
+        .times-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        /* Box styles */
+        .time-box {
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            flex: 1 1 200px;
+            text-align: center;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .no-index { background-color: #3498db; }
+        .with-index { background-color: #27ae60; }
+    </style>
+</head>
+<body>
+    <h1>Games and Orders: Database Search Performance</h1>
+
+    <form method="POST">
+        <input type="text" name="search_text" placeholder="Enter search text" value="{{ search_text }}">
+        <input type="submit" value="Search">
+    </form>
+
+    {% if results %}
+    <!-- First row: Without Index -->
+    <div class="times-row">
+        <div class="time-box no-index">
+            Single Table - Without Index<br>
+            {{ results.single_noidx.time | round(6) }} sec
+        </div>
+        <div class="time-box no-index">
+            Join Table - Without Index<br>
+            {{ results.join_noidx.time | round(6) }} sec
+        </div>
+    </div>
+
+    <!-- Second row: With Index -->
+    <div class="times-row">
+        <div class="time-box with-index">
+            Single Table - With Index<br>
+            {{ results.single_idx.time | round(6) }} sec
+        </div>
+        <div class="time-box with-index">
+            Join Table - With Index<br>
+            {{ results.join_idx.time | round(6) }} sec
+        </div>
+    </div>
+
+    <table>
+        <tr>
+            {% for col_name in results.single_noidx.cols %}
+                <th>{{ col_name }}</th>
+            {% endfor %}
+        </tr>
+
+        {% set combined_rows = results.single_noidx.data + results.join_noidx.data + results.single_idx.data + results.join_idx.data %}
+        {% for row in combined_rows[:5] %}
+            <tr>
+                {% for col in row %}
+                    <td>{{ col }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
