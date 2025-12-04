@@ -5,7 +5,7 @@ import os
 
 app = Flask(__name__)
 
-dbConnection = "dbname=assignment4 user=postgres password=JarrettusKennedy host=localhost port=5432"
+dbConnection = "dbname=example_database_name user=example_user_name password=example_password host=localhost port=5432"
 
 # Database connection
 def get_connection():

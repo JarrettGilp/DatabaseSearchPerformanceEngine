@@ -8,7 +8,7 @@ fake = Faker()
 NUM_GAMES = 10000
 NUM_ORDERS = 10000
 
-dbConnection = "dbname=assignment4 user=postgres password=JarrettusKennedy host=localhost port=5432"
+dbConnection = "dbname=example_database_name user=example_user_name password=example_password host=localhost port=5432"
 
 conn = psycopg2.connect(dbConnection)
 cursor = conn.cursor()

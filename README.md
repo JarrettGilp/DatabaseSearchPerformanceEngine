@@ -12,7 +12,7 @@
 
 # Step 3: Install Python dependencies
 #
-#       Type into terminal:     pip install flask psycopg2-binary
+#       Type into terminal:     pip install flask psycopg2-binary faker
 
 # Step 4: Setup pgAdmin database with the schema in schema.sql
 #
@@ -36,6 +36,10 @@
 # Step 9: Open the web application in browser
 #
 #       In browser, add to the address bar:     http://127.0.0.1:5000/
+
+# Step 10: AFTER FINISHING - Deactivate venv
+#
+#	Type into terminal:	deactivate
 
 
 ### Usage ###
